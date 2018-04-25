@@ -533,7 +533,8 @@ quoted tweet with photo
   <title>my content
 x
 y
-z</title>
+z
+</title>
 
   <content type="xhtml">
   <div xmlns="http://www.w3.org/1999/xhtml">
@@ -562,7 +563,7 @@ my content
 """, atom.html_to_atom("""\
 <div class="h-feed">
 <div class="p-author h-card">
-  <a href="http://my/site">My Name</a>
+  <a class="p-name" href="http://my/site">My Name</a>
   <img src="http://my/picture" />
 </div>
 

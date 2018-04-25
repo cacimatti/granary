@@ -689,7 +689,7 @@ Shared <a href="#">a post</a> by foo
   def test_json_to_object_authorship_fetch_mf2_func(self):
     self.expect_requests_get('http://example.com', u"""
 <div class="h-card">
-<a class="p-name u-url" rel="me" href="/">Ms. ☕ Baz</span>
+<a class="p-name u-url" rel="me" href="/">Ms. ☕ Baz</a>
 <img class="u-photo" src="/my/pic" />
 </div>
 """)
@@ -720,7 +720,7 @@ Shared <a href="#">a post</a> by foo
   }, microformats2.find_author(mf2py.parse(doc="""\
 <body class="h-entry">
 <div class="p-author h-card">
-<a href="http://li/nk">my name</a>
+<a class="p-name" href="http://li/nk">my name</a>
 <img class="u-photo" src="http://pic/ture" />
 </div>
 </body>
@@ -808,3 +808,22 @@ Shared <a href="#">a post</a> by   <span class="h-card">
   'object': {'url': 'http://localhost/2017-10-01_mastodon-dev-6'},
   'actor': {'url': 'http://localhost:3000/users/ryan'},
 }]), ignore_blanks=True)
+
+  def test_html_to_activities_brs_to_newlines(self):
+    """Mostly tests that mf2py converts <br>s to \ns.
+
+    Background:
+    https://github.com/snarfed/granary/issues/142
+    https://pin13.net/mf2/whitespace.html
+    """
+    html = """\
+<article class="h-entry">
+<div class="e-content p-name">foo bar<br />baz <br><br> baj</div>
+</article>"""
+    activities = microformats2.html_to_activities(html)
+    self.assert_equals([{'object': {
+      'objectType': 'note',
+      'content': 'foo bar<br/>baz <br/><br/> baj',
+      'content_is_html': True,
+      'displayName': 'foo bar\nbaz \n\n baj',
+    }}], activities)
