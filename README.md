@@ -308,7 +308,7 @@ Changelog
 ### 1.13 - unreleased
 * Twitter:
   * Support ISO 8601 formatted created_at timestamps, which the [archive download uses](https://help.twitter.com/en/managing-your-account/how-to-download-your-twitter-archive), as well as RFC 2822 from the API.
-  * `create()` and `preview_create()`: support RSVPs. Tweet them as normal tweets with the RSVP content. ([#](818))
+  * `create()` and `preview_create()`: support RSVPs. Tweet them as normal tweets with the RSVP content. ([bridgy#818](https://github.com/snarfed/bridgy/issues/818))
 * Instagram:
   * Add global rate limiting lock for scraping. If a scraping HTTP request gets a 429 or 503 response, we refuse to make more requests for 5m, and instead short circuit and return the same error. This can be overridden with a new `ignore_rate_limit` kwarg to `get_activities()`.
 * GitHub:
@@ -317,6 +317,8 @@ Changelog
   * `get_activities()` bug fix for issues/PRs with no body text.
 * Atom:
   * Shorten and ellipsize feed title when necessary ([#144](https://github.com/snarfed/granary/issues/144)).
+* microformats2:
+  * Upgrade mf2py to [1.1.0](https://github.com/microformats/mf2py/releases/tag/1.1.0), which improves a few things like [implied p-name detection](http://microformats.org/wiki/microformats2-implied-properties).
 
 ### 1.12 - 2018-03-24
 * Add Python 3 support! Granary now requires either Python 2.7+ or Python 3.3+.
